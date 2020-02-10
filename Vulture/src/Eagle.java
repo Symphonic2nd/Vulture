@@ -6,14 +6,14 @@
 
 /**
  *
- * @author k1342960
+ * @author Vicky
  */
-public class Predator {
+public class Eagle {
     
     public int x;
     public int y;
     
-    public Predator(int xc, int yc) {
+    public Eagle(int xc, int yc) {
         x = xc;
         y = yc;
     }
@@ -32,6 +32,5 @@ public class Predator {
     
     public int getY() {
         return y;
-    }
-    
+    }    
 }

@@ -14,7 +14,7 @@ import java.awt.*;
 import javax.swing.*;
 public class main extends JFrame{
     public static int WIDTH = 1600;
-    public static int HEIGHT = 800;
+    public static int HEIGHT = 830;
     /**
      * @param args the command line arguments
      */
@@ -30,7 +30,7 @@ public class main extends JFrame{
         
         //new PointLines( #of points, redraw bckgrnd, color, changing gradient, bouncy, changing size, fill in area)
         Vulture game = new Vulture();
-        
+        ((Component) game).setFocusable(true);
         getContentPane().add(game);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
