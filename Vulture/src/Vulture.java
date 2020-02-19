@@ -15,6 +15,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 public class Vulture extends JPanel{
+    public boolean died;
     public Eagle elmosworld;
     public Prey player;
     public Apple apple;
@@ -24,9 +25,11 @@ public class Vulture extends JPanel{
     public boolean go;
     public boolean add;
     public String direction;
+    public int lives;
     
     public Vulture() {
         add = false;
+        died = false;
         score = 1;
         phase = 0;
         direction = "";
@@ -36,6 +39,7 @@ public class Vulture extends JPanel{
         apple = new Apple((int)(Math.random() * 100) + 800, (int)(Math.random() * 100) + 350);
         predator = new ArrayList<Predator>();
         predator.add(new Predator((int)(Math.random() * 100) + 1490, (int)(Math.random() * 100) + 350));
+        lives = 3;
         
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -64,6 +68,7 @@ public class Vulture extends JPanel{
                     predator = new ArrayList<Predator>();
                     predator.add(new Predator((int)(Math.random() * 100) + 1490, (int)(Math.random() * 100) + 350));
                     score = 1;
+                    lives = 3;
                 }
                 
                 repaint();
@@ -77,11 +82,22 @@ public class Vulture extends JPanel{
     
     public void paint(Graphics window) {
         window.setColor(Color.BLACK);
+        
+        if (died) {
+            window.setColor(Color.RED);
+            int p = (int)(Math.random() * 3);
+            if (p == 0) {
+                died = false;
+            }
+        }
+        
         window.fillRect(0, 0, 1600, 850);
         window.setColor(Color.RED);
         window.drawRect(0, 1, 1599, 829);
         window.setColor(Color.WHITE);
         window.drawString("Score: " + score, 10, 15);
+        window.setColor(Color.WHITE);
+        window.drawString("Lives: " + lives, 10, 25);
         window.setColor(Color.BLUE);
         window.fillOval(player.x, player.y, 10, 10);
         //window.setColor(Color.GREEN);
@@ -126,14 +142,24 @@ public class Vulture extends JPanel{
                 }
                 
                 if (predator.get(i).y == player.y && predator.get(i).x == player.x) {
-                    go = false;
-                    phase = 1;
+                    died = true;
+                    lives--;
+                    if (lives == 0) {
+                        go = false;
+                        
+                        phase = 1;
+                    }
+                    else {
+                        predator.remove(i);
+                    }
                 }
             }
             
             
-            
             int r = (int)(Math.random() * (500 - score * 4));
+            if (score >= 122) {
+                r = (int)(Math.random() * 10);
+            }
             if (r == 0) { 
                 for (int i = -1; i < 0; i++) {
                     predator.add(new Predator((int)(Math.random() * 1600), (int)(Math.random() * 800)));
@@ -164,7 +190,7 @@ public class Vulture extends JPanel{
             }
             
         }
-        
+       
         if (phase == 1) {
             window.setColor(Color.WHITE);
             window.drawString("You have been Vultured: " + score, 700, 400);
