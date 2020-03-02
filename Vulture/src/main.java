@@ -32,7 +32,7 @@ public class main extends JFrame{
         Vulture game = new Vulture();
         ((Component) game).setFocusable(true);
         getContentPane().add(game);
-        
+        setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         setVisible(true);
