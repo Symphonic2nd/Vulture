@@ -17,6 +17,8 @@ import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 public class Vulture extends JPanel{
     public boolean died;
@@ -31,7 +33,8 @@ public class Vulture extends JPanel{
     public String direction;
     public int lives;
     public int p;
-    public Vulture() {
+    public SimpleAudioPlayer music;
+    public Vulture() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         add = false;
         died = false;
         score = 1;
@@ -45,6 +48,8 @@ public class Vulture extends JPanel{
         predator.add(new Predator((int)(Math.random() * 100) + 1490, (int)(Math.random() * 100) + 350));
         lives = 3;
         p = 3;
+        music = new SimpleAudioPlayer("images/10 The Library.wav", -1);
+        music.play();
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (phase == 0 && (e.getKeyCode() >= 37 && e.getKeyCode()<= 40)) {
@@ -175,7 +180,13 @@ public class Vulture extends JPanel{
             }
             if (r == 0) { 
                 for (int i = -1; i < 0; i++) {
-                    predator.add(new Predator((int)(Math.random() * 1600), (int)(Math.random() * 800)));
+                    int xp = (int)(Math.random() * 1600);
+                    int yp = (int)(Math.random() * 800);
+                    while (((Math.abs(xp - player.getX())) + (Math.abs(yp - player.getY()))) <= 400) {
+                        xp -= 100;
+                        yp -= 100;
+                    }
+                    predator.add(new Predator(xp, yp));
                     score++;
                 }
             }
