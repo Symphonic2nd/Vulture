@@ -48,8 +48,8 @@ public class Vulture extends JPanel{
         predator.add(new Predator((int)(Math.random() * 100) + 1490, (int)(Math.random() * 100) + 350));
         lives = 3;
         p = 3;
-        music = new SimpleAudioPlayer("images/10 The Library.wav", -1);
-        music.play();
+        //music = new SimpleAudioPlayer("images/10 The Library.wav", -1);
+        //music.play();
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (phase == 0 && (e.getKeyCode() >= 37 && e.getKeyCode()<= 40)) {
