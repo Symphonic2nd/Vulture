@@ -92,15 +92,15 @@ public class Vulture extends JPanel{
     }
     
     public void paint(Graphics window) {
-        if (lives == 3) {
+        if (lives % 2 == 1) {
             window.setColor(Color.BLACK);
             window.fillRect(0, 0, 1600, 830);
         }
-        else if (lives == 2) {
+        else if (lives % 2 == 0) {
             window.setColor(Color.white);
             window.fillRect(0, 0, 1600, 830);
         }
-        else if (lives <= 1) {
+        if (lives <= 1) {
             window.setColor(Color.BLACK);
             window.fillRect(0, 0, 1600, 830);
         }
@@ -111,7 +111,7 @@ public class Vulture extends JPanel{
         window.drawString("Score: " + score, 10, 15);
         window.setColor(Color.WHITE);
         window.drawString("Lives: " + lives, 10, 25);
-        if (lives == 2) {
+        if (lives % 2 == 0) {
             window.setColor(Color.BLACK);
             window.drawString("Score: " + score, 10, 15);
             window.setColor(Color.BLACK);
@@ -177,6 +177,7 @@ public class Vulture extends JPanel{
             int r = (int)(Math.random() * (500 - score * 4));
             if (score >= 122) {
                 r = (int)(Math.random() * 10);
+
             }
             if (r == 0) { 
                 for (int i = -1; i < 0; i++) {
